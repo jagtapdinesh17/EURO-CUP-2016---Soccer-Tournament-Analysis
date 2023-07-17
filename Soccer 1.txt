@@ -1,0 +1,183 @@
+1. From the following table, write a SQL query to count the number of venues for EURO cup 2016. Return number of venues.
+
+Query - SELECT COUNT(venue_id) FROM soccer_venue;
+
+2. From the following table, write a SQL query to count the number of countries that participated in the 2016-EURO Cup.
+
+Query - 
+SELECT COUNT(DISTINCT team_id) FROM player_mast;
+
+3. From the following table, write a SQL query to find the number of goals scored within normal play during the EURO cup 2016.
+
+Query - 
+
+SELECT COUNT(goal_type) FROM goal_details
+WHERE goal_type = 'N';
+
+4. From the following table, write a SQL query to find the number of matches that ended with a result.
+
+Query - 
+
+SELECT COUNT(*) FROM match_mast
+WHERE results = 'WIN';
+
+5. From the following table, write a SQL query to find the number of matches that ended in draws.
+
+Query - 
+
+SELECT COUNT(*) FROM match_mast
+WHERE results = 'DRAW';
+
+6. From the following table, write a SQL query to find out when the Football EURO cup 2016 will begin.
+
+Query - 
+
+SELECT MIN(play_date) AS Beginning_Date
+ FROM match_mast;
+
+7. From the following table, write a SQL query to find the number of self-goals scored during the 2016 European Championship.
+
+Query - 
+
+SELECT COUNT(goal_id) FROM goal_details
+WHERE goal_type = 'O';
+
+8. From the following table, write a SQL query to count the number of matches ended with a results in-group stage.
+
+Query - 
+
+SELECT COUNT(match_no) FROM match_mast
+WHERE play_stage = 'G'
+AND results = 'WIN';
+
+9. From the following table, write a SQL query to find the number of matches that resulted in a penalty shootout.
+
+Query - 
+
+SELECT COUNT(DISTINCT(match_no)) FROM penalty_shootout;
+
+10. From the following table, write a SQL query to find number of matches decided by penalties in the Round 16.
+
+Query - 
+
+SELECT COUNT(match_no) FROM match_mast
+WHERE decided_by = 'P'
+AND play_stage = 'R';
+
+11. From the following table, write a SQL query to find the number of goal scored in every match within normal play schedule. Sort the result-set on match number. Return match number, number of goal scored.
+
+Query - 
+
+SELECT match_no, COUNT(goal_id) "No of Goal Scored" FROM goal_details
+WHERE goal_schedule = 'NT'
+GROUP BY match_no
+ORDER BY match_no;
+
+12. From the following table, write a SQL query to find the matches in which no stoppage time was added during the first half of play. Return match no, date of play, and goal scored.
+
+Query - 
+
+SELECT match_no, play_date, goal_score
+ FROM match_mast
+WHERE stop1_sec = 0;
+
+13. From the following table, write a SQL query to count the number of matches that ended in a goalless draw at the group stage. Return number of matches.
+
+Query - 
+
+SELECT COUNT(DISTINCT match_no) 
+FROM match_details
+WHERE win_lose = 'D'
+AND play_stage = 'G'
+AND goal_score = 0;
+
+
+14. From the following table, write a SQL query to calculate the number of matches that ended in a single goal win, excluding matches decided by penalty shootouts. Return number of matches.
+
+Query - 
+
+SELECT COUNT (DISTINCT match_no) 
+FROM match_details
+WHERE goal_score = 1
+AND decided_by != 'P'
+AND win_lose = 'W';
+
+15. From the following table, write a SQL query to count the number of players replaced in the tournament. Return number of players as "Player Replaced".
+
+Query - 
+
+SELECT COUNT(player_id) AS "Player Replaced"
+FROM player_in_out
+WHERE in_out = 'I';
+
+16. From the following table, write a SQL query to count the total number of players replaced during normal playtime. Return number of players as "Player Replaced".
+
+Query - 
+
+SELECT COUNT(player_id) AS "Player Replaced"
+FROM player_in_out
+WHERE play_schedule = 'NT'
+AND in_out = 'I';
+
+17. From the following table, write a SQL query to count the number of players who were replaced during the stoppage time. Return number of players as "Player Replaced".
+
+Query - 
+SELECT COUNT(player_id) AS "Player Replaced"
+FROM player_in_out
+WHERE play_schedule = 'ST'
+AND in_out = 'I';
+
+18. From the following table, write a SQL query to count the number of players who were replaced during the first half. Return number of players as "Player Replaced".
+
+Query - 
+
+SELECT COUNT(player_id) AS "Player Replaced"
+FROM player_in_out
+WHERE play_half = 1
+AND in_out = 'I';
+
+19. From the following table, write a SQL query to count the total number of goalless draws played in the entire tournament. Return number of goalless draws.
+
+Query - 
+
+SELECT COUNT (DISTINCT match_no) AS "Goalless Draw"
+ FROM match_details
+WHERE goal_score = 0
+AND win_lose = 'D';
+
+20. From the following table, write a SQL query to calculate the total number of players who were replaced during the extra time.
+
+Query - 
+
+SELECT COUNT(player_id) FROM player_in_out
+WHERE in_out = 'I'
+AND play_schedule = 'ET';
+
+21. From the following table, write a SQL query to count the number of substitutes during various stages of the tournament. Sort the result-set in ascending order by play-half, play-schedule and number of substitute happened. Return play-half, play-schedule, number of substitute happened.
+
+Query - 
+
+SELECT play_half,play_schedule,COUNT(player_id) FROM player_in_out
+WHERE in_out = 'I'
+GROUP BY play_half, play_schedule
+ORDER BY play_half ASC,
+play_half ASC, play_schedule ASC;
+
+22. From the following table, write a SQL query to count the number of shots taken in penalty shootouts matches. Number of shots as "Number of Penalty Kicks".
+
+Query - 
+
+SELECT COUNT(kick_id) 
+AS "Number of Penalty Kicks"
+FROM penalty_shootout;
+
+23. From the following table, write a SQL query to count the number of shots that were scored in penalty shootouts matches. Return number of shots scored goal as "Goal Scored by Penalty Kicks".
+
+Query - 
+
+SELECT COUNT(kick_id) 
+AS "Goal Scored by Penalty Kicks"
+FROM penalty_shootout
+WHERE score_goal = 'Y';
+
+
