@@ -180,4 +180,59 @@ AS "Goal Scored by Penalty Kicks"
 FROM penalty_shootout
 WHERE score_goal = 'Y';
 
+24. From the following table, write a SQL query to count the number of shots missed or saved in penalty shootout matches. Return number of shots missed as "Goal missed or saved by Penalty Kicks".
+
+Query - 
+
+SELECT COUNT(kick_id) AS "Goal missed or saved by Penalty Kicks"
+FROM penalty_shootout
+WHERE score_goal = 'N';
+
+25. From the following table, write a SQL query to find the players with shot numbers they took in penalty shootout matches. Return match_no, Team, player_name, jersey_no, score_goal, kick_no.
+
+Query - 
+
+SELECT ps.match_no, c.country_name AS Team , pm.player_name,
+pm.jersey_no, ps.score_goal, ps.kick_no
+FROM penalty_shootout ps
+JOIN player_mast pm
+ON pm.player_id = ps.player_id
+JOIN soccer_country c
+ON c.country_id = ps.team_id
+ORDER BY match_no;
+
+26. From the following table, write a SQL query to count the number of penalty shots taken by each team. Return country name, number of shots as "Number of Shots".
+
+Query - 
+
+SELECT c.country_name, 
+COUNT(ps.kick_id) AS "Number of Shots"
+FROM soccer_country c
+JOIN penalty_shootout ps
+ON c.country_id = ps.team_id
+GROUP BY c.country_name;
+
+27. From the following table, write a SQL query to count the number of bookings in each half of play within the normal play schedule. Return play_half, play_schedule, number of booking happened.
+
+Query - 
+
+SELECT play_half,play_schedule, COUNT(booking_time)
+FROM player_booked
+WHERE play_schedule = 'NT'
+GROUP BY play_half, play_schedule;
+
+28. From the following table, write a SQL query to count the number of bookings during stoppage time.
+
+Query - 
+
+SELECT COUNT(booking_time) FROM player_booked
+WHERE play_schedule = 'ST';
+
+29. From the following table, write a SQL query to count the number of bookings that happened in extra time.
+
+Query - 
+
+SELECT COUNT(booking_time) FROM player_booked
+WHERE play_schedule = 'ET';
+
 
